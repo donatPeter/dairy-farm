@@ -1,0 +1,127 @@
+{
+  "version": 2,
+  "projects": {
+    "dairy-farm": {
+      "root": "apps/dairy-farm",
+      "sourceRoot": "apps/dairy-farm/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/dairy-farm",
+            "index": "apps/dairy-farm/src/index.html",
+            "main": "apps/dairy-farm/src/main.tsx",
+            "polyfills": "apps/dairy-farm/src/polyfills.ts",
+            "tsConfig": "apps/dairy-farm/tsconfig.app.json",
+            "assets": [
+              "apps/dairy-farm/src/favicon.ico",
+              "apps/dairy-farm/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dairy-farm/src/environments/environment.ts",
+                  "with": "apps/dairy-farm/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "dairy-farm:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "dairy-farm:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/dairy-farm/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/dairy-farm"],
+          "options": {
+            "jestConfig": "apps/dairy-farm/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "dairy-farm-e2e": {
+      "root": "apps/dairy-farm-e2e",
+      "sourceRoot": "apps/dairy-farm-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/dairy-farm-e2e/cypress.json",
+            "tsConfig": "apps/dairy-farm-e2e/tsconfig.e2e.json",
+            "devServerTarget": "dairy-farm:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "dairy-farm:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/dairy-farm-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "dairy-farm"
+}
